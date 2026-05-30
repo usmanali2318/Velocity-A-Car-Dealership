@@ -1,10 +1,11 @@
 
 import { db } from "./db";
 import {
-  cars, orders, contactMessages,
+  cars, orders, contactMessages, users,
   type Car, type InsertCar,
   type Order, type InsertOrder,
-  type ContactMessage, type InsertContactMessage
+  type ContactMessage, type InsertContactMessage,
+  type User, type InsertUser
 } from "@shared/schema";
 import { eq, and, gte, lte, desc, asc } from "drizzle-orm";
 
@@ -19,6 +20,8 @@ export interface IStorage {
   getCar(id: number): Promise<Car | undefined>;
   createCar(car: InsertCar): Promise<Car>;
   createOrder(order: InsertOrder): Promise<Order>;
+  createUser(user: InsertUser): Promise<User>;
+  getUserByUsername(username: string): Promise<User | undefined>;
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   seedCars(): Promise<void>;
 }
@@ -92,6 +95,16 @@ export class DatabaseStorage implements IStorage {
     }).returning();
     
     return newOrder;
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const [newUser] = await db.insert(users).values(user).returning();
+    return newUser;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user;
   }
 
   async createContactMessage(message: InsertContactMessage): Promise<ContactMessage> {

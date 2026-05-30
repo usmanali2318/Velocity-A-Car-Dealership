@@ -40,17 +40,26 @@
                 <p style="color: #a1a1aa; font-size: 0.875rem; margin-bottom: 2rem;">Please provide your details to reserve this vehicle.</p>
                 
                 <form id="reservation-form" onsubmit="handleReservation(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div>
-                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Full Name</label>
-                        <input type="text" name="name" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: var(--radius); border: 1px solid hsl(var(--accent));">
+                        <h3 style="font-size: 0.875rem; color: hsl(var(--accent)); margin-bottom: 0.5rem;">Reservation Summary</h3>
+                        <div style="display: flex; justify-content: space-between; color: white;">
+                            <span>Security Deposit (50%)</span>
+                            <span id="reservation-amount-display">PKR 0</span>
+                        </div>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Email Address</label>
-                        <input type="email" name="email" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Card Number</label>
+                        <input type="text" name="cardNumber" placeholder="1234 5678 9101 1121" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
                     </div>
-                    <div>
-                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Phone Number</label>
-                        <input type="tel" name="phone" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Expiry Date</label>
+                            <input type="text" name="expiryDate" placeholder="MM/YY" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">CVV</label>
+                            <input type="password" name="cvv" placeholder="123" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                        </div>
                     </div>
                     <button type="submit" id="submit-btn" class="btn btn-primary" style="height: 3.5rem; font-weight: 700; text-transform: uppercase; margin-top: 1rem;">
                         Confirm Reservation

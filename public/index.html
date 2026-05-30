@@ -20,9 +20,11 @@
                 <a href="index.html" class="nav-link nav-link-active">Home</a>
                 <a href="inventory.html" class="nav-link">Inventory</a>
                 <a href="contact.html" class="nav-link">Contact</a>
+                <a href="auth.html" id="auth-link" class="nav-link">Login</a>
             </nav>
             <div style="display: none;" class="md:block">
                 <a href="inventory.html" class="btn btn-outline" style="border-radius: 0;">Find Your Vehicle</a>
+                <button id="logout-btn" class="btn btn-outline" style="border-radius: 0; display: none; margin-left: 1rem;">Logout</button>
             </div>
         </div>
     </header>
@@ -149,6 +151,19 @@
             `).join('');
         }
         loadFeatured();
+
+        // Check auth status
+        const user = localStorage.getItem('user');
+        if (user) {
+            const userData = JSON.parse(user);
+            document.getElementById('auth-link').innerText = userData.fullName;
+            document.getElementById('logout-btn').style.display = 'inline-flex';
+        }
+
+        document.getElementById('logout-btn').onclick = () => {
+            localStorage.removeItem('user');
+            window.location.reload();
+        };
     </script>
 </body>
 </html>

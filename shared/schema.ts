@@ -17,6 +17,15 @@ export const cars = sqliteTable("cars", {
   detailImage: text("detail_image"),
 });
 
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull().unique(),
+  phone: text("phone"),
+});
+
 export const orders = sqliteTable("orders", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   customerName: text("customer_name").notNull(),
@@ -24,8 +33,17 @@ export const orders = sqliteTable("orders", {
   customerPhone: text("customer_phone").notNull(),
   carId: integer("car_id").notNull(),
   quantity: integer("quantity").notNull(),
+  reservationAmount: integer("reservation_amount").notNull(),
+  cardNumber: text("card_number"),
+  expiryDate: text("expiry_date"),
+  cvv: text("cvv"),
+  userId: integer("user_id"),
   createdAt: integer("created_at", { mode: 'timestamp' }).default(new Date()),
 });
+
+export const insertUserSchema = createInsertSchema(users).omit({ id: true });
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
 
 export const contactMessages = sqliteTable("contact_messages", {
   id: integer("id").primaryKey({ autoIncrement: true }),

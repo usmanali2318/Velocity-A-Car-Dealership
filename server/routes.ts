@@ -4,7 +4,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api, errorSchemas } from "@shared/routes";
 import { z } from "zod";
-import { insertOrderSchema } from "@shared/schema";
+import { insertOrderSchema, insertUserSchema } from "@shared/schema";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -71,6 +71,28 @@ export async function registerRoutes(
       }
       res.status(500).json({ message: "Internal server error" });
     }
+  });
+
+  // Auth Routes
+  app.post("/api/signup", async (req, res) => {
+    try {
+      const input = insertUserSchema.parse(req.body);
+      const existing = await storage.getUserByUsername(input.username);
+      if (existing) return res.status(400).json({ message: "Username already exists" });
+      const user = await storage.createUser(input);
+      res.status(201).json(user);
+    } catch (err) {
+      res.status(400).json({ message: "Invalid signup data" });
+    }
+  });
+
+  app.post("/api/login", async (req, res) => {
+    const { username, password } = req.body;
+    const user = await storage.getUserByUsername(username);
+    if (!user || user.password !== password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    res.json(user);
   });
 
   return httpServer;

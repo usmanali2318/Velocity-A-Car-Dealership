@@ -87,6 +87,10 @@ async function loadDetails() {
     }
 
     window.openModal = () => {
+        const amountDisplay = document.getElementById('reservation-amount-display');
+        const resAmount = Math.floor(car.price * 0.5);
+        amountDisplay.innerText = `PKR ${resAmount.toLocaleString()}`;
+        document.getElementById('reservation-modal').dataset.resAmount = resAmount;
         document.getElementById('reservation-modal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     };
@@ -98,16 +102,30 @@ async function loadDetails() {
 
     window.handleReservation = async (e) => {
         e.preventDefault();
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+            alert('Please login to reserve a vehicle.');
+            window.location.href = 'auth.html';
+            return;
+        }
+        const user = JSON.parse(userStr);
+
         const submitBtn = document.getElementById('submit-btn');
         const formData = new FormData(e.target);
+        const modal = document.getElementById('reservation-modal');
+        
         const data = {
             carId: parseInt(id),
-            customerName: formData.get('name'),
-            customerPhone: formData.get('phone'),
-            quantity: 1
+            customerName: user.fullName,
+            customerPhone: user.phone || '000-000-0000',
+            customerEmail: user.email,
+            quantity: 1,
+            reservationAmount: parseInt(modal.dataset.resAmount),
+            cardNumber: formData.get('cardNumber'),
+            expiryDate: formData.get('expiryDate'),
+            cvv: formData.get('cvv'),
+            userId: user.id
         };
-        const email = formData.get('email');
-        if (email) data.customerEmail = email;
 
         submitBtn.disabled = true;
         submitBtn.innerText = 'Processing...';
