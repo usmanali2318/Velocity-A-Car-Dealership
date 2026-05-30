@@ -1,37 +1,37 @@
 
-import { pgTable, text, serial, integer, boolean, timestamp, real } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const cars = pgTable("cars", {
-  id: serial("id").primaryKey(),
+export const cars = sqliteTable("cars", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   model: text("model").notNull(),
   category: text("category").notNull(), // Sedan, SUV, Sports, Electric, Luxury
-  price: real("price").notNull(),
+  price: integer("price").notNull(),
   color: text("color").notNull(),
-  availability: boolean("availability").default(true),
+  availability: integer("availability", { mode: 'boolean' }).default(true),
   quantity: integer("quantity").notNull(),
   image: text("image").notNull(),
 });
 
-export const orders = pgTable("orders", {
-  id: serial("id").primaryKey(),
+export const orders = sqliteTable("orders", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   customerName: text("customer_name").notNull(),
   phone: text("phone").notNull(),
   address: text("address").notNull(),
   zipcode: text("zipcode").notNull(),
   carId: integer("car_id").notNull(),
   quantity: integer("quantity").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: integer("created_at", { mode: 'timestamp' }).default(new Date()),
 });
 
-export const contactMessages = pgTable("contact_messages", {
-  id: serial("id").primaryKey(),
+export const contactMessages = sqliteTable("contact_messages", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   message: text("message").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: integer("created_at", { mode: 'timestamp' }).default(new Date()),
 });
 
 // Schemas
