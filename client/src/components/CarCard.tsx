@@ -22,24 +22,26 @@ export function CarCard({ car }: CarCardProps) {
       viewport={{ once: true }}
       className="group relative bg-card border border-border/50 overflow-hidden rounded-sm hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5"
     >
-      <div className="aspect-[16/10] overflow-hidden bg-muted relative">
-        <img
-          src={car.image || "/images/cars/placeholder.jpg"}
-          alt={`${car.name} ${car.model}`}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
-        />
-        <div className="absolute top-4 right-4">
-          <Badge 
-            variant={car.quantity > 0 ? "secondary" : "destructive"} 
-            className="uppercase tracking-widest text-[10px] py-1 px-3 bg-black/50 backdrop-blur-md text-white border-white/10"
-          >
-            {car.quantity > 0 ? "Available" : "Sold Out"}
-          </Badge>
+      <Link href={`/cars/${car.id}`} className="block">
+        <div className="aspect-[16/10] overflow-hidden bg-muted relative cursor-pointer">
+          <img
+            src={car.image || "/images/cars/placeholder.jpg"}
+            alt={`${car.name} ${car.model}`}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
+          />
+          <div className="absolute top-4 right-4">
+            <Badge 
+              variant={car.quantity > 0 ? "secondary" : "destructive"} 
+              className="uppercase tracking-widest text-[10px] py-1 px-3 bg-black/50 backdrop-blur-md text-white border-white/10"
+            >
+              {car.quantity > 0 ? "Available" : "Sold Out"}
+            </Badge>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
+            <span className="text-white font-display text-lg tracking-wide">{car.category}</span>
+          </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
-          <span className="text-white font-display text-lg tracking-wide">{car.category}</span>
-        </div>
-      </div>
+      </Link>
 
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">

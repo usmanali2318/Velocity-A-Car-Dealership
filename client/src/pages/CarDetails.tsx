@@ -40,6 +40,8 @@ export default function CarDetails() {
     maximumFractionDigits: 0,
   }).format(car.price);
 
+  const [selectedImage, setSelectedImage] = useState(car.image);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -55,31 +57,46 @@ export default function CarDetails() {
             {/* Image Gallery Section */}
             <div className="space-y-4">
               <motion.div 
+                key={selectedImage}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="aspect-[16/10] overflow-hidden rounded-sm bg-muted border border-white/10"
               >
                 <img
-                  src={car.image || "/images/cars/placeholder.jpg"}
+                  src={selectedImage || "/images/cars/placeholder.jpg"}
                   alt={car.name}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
               <div className="grid grid-cols-3 gap-4">
-                {/* Simulated gallery thumbnails - in real app, these would be multiple images */}
-                <div className="aspect-video bg-muted rounded-sm border border-white/10 overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
-                  <img src={car.image} className="w-full h-full object-cover" />
+                <div 
+                  onClick={() => setSelectedImage(car.image)}
+                  className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all ${selectedImage === car.image ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                >
+                  <img src={car.image} className="w-full h-full object-cover" alt="Main" />
                 </div>
-                <div className="aspect-video bg-muted rounded-sm border border-white/10 overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity relative">
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                    <span className="text-xs uppercase">Interior</span>
+                {car.interiorImage && (
+                  <div 
+                    onClick={() => setSelectedImage(car.interiorImage!)}
+                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${selectedImage === car.interiorImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                  >
+                    <img src={car.interiorImage} className="w-full h-full object-cover" alt="Interior" />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="text-[10px] uppercase tracking-tighter font-bold">Interior</span>
+                    </div>
                   </div>
-                </div>
-                <div className="aspect-video bg-muted rounded-sm border border-white/10 overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity relative">
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                    <span className="text-xs uppercase">Detail</span>
+                )}
+                {car.detailImage && (
+                  <div 
+                    onClick={() => setSelectedImage(car.detailImage!)}
+                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${selectedImage === car.detailImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                  >
+                    <img src={car.detailImage} className="w-full h-full object-cover" alt="Detail" />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="text-[10px] uppercase tracking-tighter font-bold">Detail</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
