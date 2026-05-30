@@ -25,11 +25,11 @@ export default function Inventory() {
     sort: "price_desc" as "price_asc" | "price_desc",
   });
 
-  const [priceRange, setPriceRange] = useState([0, 500000]);
+  const [priceRange, setPriceRange] = useState([0, 100000000]);
   
   const { data: cars, isLoading, error } = useCars(filters);
 
-  const categories = ["Sedan", "SUV", "Sports", "Electric", "Luxury"];
+  const categories = ["Sedan", "SUV", "Pickup", "Luxury"];
   const colors = ["Black", "White", "Silver", "Red", "Blue", "Grey"];
 
   // Update category if URL param changes
@@ -48,7 +48,7 @@ export default function Inventory() {
       color: undefined,
       sort: "price_desc",
     });
-    setPriceRange([0, 500000]);
+    setPriceRange([0, 100000000]);
     window.history.pushState({}, "", "/inventory");
   };
 
@@ -119,14 +119,14 @@ export default function Inventory() {
               <div className="flex justify-between">
                 <Label className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Price Range</Label>
                 <span className="text-xs text-accent">
-                  ${(priceRange[0]/1000).toFixed(0)}k - ${(priceRange[1]/1000).toFixed(0)}k+
+                  PKR {(priceRange[0]/1000000).toFixed(1)}M - {(priceRange[1]/1000000).toFixed(1)}M+
                 </span>
               </div>
               <Slider
-                defaultValue={[0, 500000]}
+                defaultValue={[0, 100000000]}
                 value={priceRange}
-                max={500000}
-                step={5000}
+                max={100000000}
+                step={1000000}
                 onValueChange={handlePriceChange}
                 className="py-4"
               />

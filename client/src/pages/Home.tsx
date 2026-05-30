@@ -72,8 +72,8 @@ export default function Home() {
       {/* Categories Strip */}
       <section className="bg-black py-20 border-b border-white/5">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {['Sedan', 'SUV', 'Sports', 'Electric', 'Luxury'].map((cat, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {['Sedan', 'SUV', 'Pickup', 'Luxury'].map((cat, i) => (
               <Link key={cat} href={`/inventory?category=${cat}`}>
                 <motion.div 
                   whileHover={{ y: -5 }}

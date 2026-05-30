@@ -99,7 +99,10 @@ export class DatabaseStorage implements IStorage {
 
   async seedCars(): Promise<void> {
     const existing = await this.getCars();
-    if (existing.length > 0) return;
+    // We want to force refresh for this update
+    if (existing.length > 0) {
+      await db.delete(cars);
+    }
 
     const seedData: InsertCar[] = [
       // Sedan / Hatchback
@@ -114,6 +117,7 @@ export class DatabaseStorage implements IStorage {
       { name: "Toyota Prado", model: "2022", category: "SUV", price: 45000000, color: "Black", quantity: 1, image: "toyota_prado.jpg" },
       { name: "Kia Sportage", model: "2023", category: "SUV", price: 8500000, color: "Silver", quantity: 4, image: "kia_sportage.jpg" },
       { name: "Hyundai Tucson", model: "2023", category: "SUV", price: 8200000, color: "Grey", quantity: 3, image: "hyundai_tucson.jpg" },
+      { name: "Honda BR-V", model: "2023", category: "SUV", price: 6500000, color: "Silver", quantity: 4, image: "honda_brv.jpg" },
       // Pickup / Utility
       { name: "Toyota Hilux Revo", model: "2023", category: "Pickup", price: 14500000, color: "White", quantity: 3, image: "toyota_hilux_revo.jpg" },
       { name: "Isuzu D-Max", model: "2023", category: "Pickup", price: 12500000, color: "Black", quantity: 2, image: "isuzu_d_max.jpg" },
