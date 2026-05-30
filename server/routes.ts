@@ -95,5 +95,15 @@ export async function registerRoutes(
     res.json(user);
   });
 
+  app.patch("/api/users/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const user = await storage.updateUser(id, req.body);
+      res.json(user);
+    } catch (err) {
+      res.status(400).json({ message: "Update failed" });
+    }
+  });
+
   return httpServer;
 }

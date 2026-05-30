@@ -87,10 +87,27 @@ async function loadDetails() {
     }
 
     window.openModal = () => {
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+            alert('Please login to reserve a vehicle.');
+            window.location.href = 'auth.html';
+            return;
+        }
+        
         const amountDisplay = document.getElementById('reservation-amount-display');
         const resAmount = Math.floor(car.price * 0.5);
         amountDisplay.innerText = `PKR ${resAmount.toLocaleString()}`;
         document.getElementById('reservation-modal').dataset.resAmount = resAmount;
+        
+        // Auto-fill card details if available
+        const user = JSON.parse(userStr);
+        if (user.cardNumber) {
+            const form = document.getElementById('reservation-form');
+            form.querySelector('[name="cardNumber"]').value = user.cardNumber;
+            form.querySelector('[name="expiryDate"]').value = user.expiryDate || '';
+            form.querySelector('[name="cvv"]').value = user.cvv || '';
+        }
+
         document.getElementById('reservation-modal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     };

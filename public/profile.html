@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity | My Profile</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-container { max-width: 800px; margin: 4rem auto; padding: 0 2rem; }
+        .profile-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 2.5rem; border-radius: var(--radius); }
+        .section-title { font-size: 1.25rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; }
+        .form-group input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: var(--radius); }
+    </style>
+</head>
+<body class="bg-background">
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                </div>
+                <span class="brand-text">VELOCITY</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="inventory.html" class="nav-link">Inventory</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="profile.html" class="nav-link nav-link-active" id="user-display">Profile</a>
+            </nav>
+            <button id="logout-btn" class="btn btn-outline" style="border-radius: 0;">Logout</button>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <h2 class="section-title">Personal Information</h2>
+            <form id="profile-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="fullName" id="p-fullName">
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" id="p-username" readonly style="opacity: 0.6;">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" id="p-email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" id="p-phone">
+                    </div>
+                </div>
+
+                <h2 class="section-title">Saved Payment Method</h2>
+                <div class="form-grid">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Card Number</label>
+                        <input type="text" name="cardNumber" id="p-cardNumber" placeholder="xxxx xxxx xxxx xxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" name="expiryDate" id="p-expiryDate" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="password" name="cvv" id="p-cvv" placeholder="***">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; height: 3.5rem;">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) window.location.href = 'auth.html';
+
+        document.getElementById('user-display').innerText = user.fullName;
+        document.getElementById('p-fullName').value = user.fullName || '';
+        document.getElementById('p-username').value = user.username || '';
+        document.getElementById('p-email').value = user.email || '';
+        document.getElementById('p-phone').value = user.phone || '';
+        document.getElementById('p-cardNumber').value = user.cardNumber || '';
+        document.getElementById('p-expiryDate').value = user.expiryDate || '';
+        document.getElementById('p-cvv').value = user.cvv || '';
+
+        document.getElementById('profile-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const res = await fetch(`/api/users/${user.id}`, {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                if (res.ok) {
+                    const updatedUser = await res.json();
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                    alert('Profile updated successfully!');
+                    window.location.reload();
+                } else {
+                    alert('Failed to update profile');
+                }
+            } catch (err) {
+                alert('Error updating profile');
+            }
+        };
+
+        document.getElementById('logout-btn').onclick = () => {
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+</html>

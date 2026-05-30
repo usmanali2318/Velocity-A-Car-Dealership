@@ -21,6 +21,7 @@ export interface IStorage {
   createCar(car: InsertCar): Promise<Car>;
   createOrder(order: InsertOrder): Promise<Order>;
   createUser(user: InsertUser): Promise<User>;
+  updateUser(id: number, user: Partial<User>): Promise<User>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   seedCars(): Promise<void>;
@@ -100,6 +101,15 @@ export class DatabaseStorage implements IStorage {
   async createUser(user: InsertUser): Promise<User> {
     const [newUser] = await db.insert(users).values(user).returning();
     return newUser;
+  }
+
+  async updateUser(id: number, userUpdate: Partial<User>): Promise<User> {
+    const [updatedUser] = await db.update(users)
+      .set(userUpdate)
+      .where(eq(users.id, id))
+      .returning();
+    if (!updatedUser) throw new Error("User not found");
+    return updatedUser;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {

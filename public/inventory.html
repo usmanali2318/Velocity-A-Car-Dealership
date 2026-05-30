@@ -20,6 +20,17 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="inventory.html" class="nav-link nav-link-active">Inventory</a>
                 <a href="contact.html" class="nav-link">Contact</a>
+                <div id="user-dropdown" style="position: relative; display: none;">
+                    <button id="user-display" class="nav-link" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <span id="user-name">User</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div id="dropdown-content" style="display: none; position: absolute; top: 100%; right: 0; background: hsl(var(--card)); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.25rem; min-width: 150px; z-index: 100; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);">
+                        <a href="profile.html" style="display: block; padding: 0.75rem 1rem; color: white; text-decoration: none; font-size: 0.875rem;" class="hover:bg-white/5">Profile</a>
+                        <button id="logout-btn-dropdown" style="width: 100%; text-align: left; background: none; border: none; padding: 0.75rem 1rem; color: #ef4444; cursor: pointer; font-size: 0.875rem;" class="hover:bg-white/5">Logout</button>
+                    </div>
+                </div>
+                <a href="auth.html" id="auth-link" class="nav-link">Login</a>
             </nav>
             <div style="display: none;" class="md:block">
                 <a href="inventory.html" class="btn btn-outline" style="border-radius: 0;">Find Your Vehicle</a>
@@ -104,6 +115,32 @@
                 header.classList.add('header-default');
             }
         });
+
+        // Check auth status
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+            const userData = JSON.parse(userStr);
+            document.getElementById('auth-link').style.display = 'none';
+            document.getElementById('user-dropdown').style.display = 'block';
+            document.getElementById('user-name').innerText = userData.fullName;
+            
+            const displayBtn = document.getElementById('user-display');
+            const dropdown = document.getElementById('dropdown-content');
+            
+            displayBtn.onclick = (e) => {
+                e.stopPropagation();
+                dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+            };
+            
+            document.addEventListener('click', () => {
+                dropdown.style.display = 'none';
+            });
+            
+            document.getElementById('logout-btn-dropdown').onclick = () => {
+                localStorage.removeItem('user');
+                window.location.reload();
+            };
+        }
     </script>
 </body>
 </html>

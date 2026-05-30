@@ -24,6 +24,9 @@ export const users = sqliteTable("users", {
   fullName: text("full_name").notNull(),
   email: text("email").notNull().unique(),
   phone: text("phone"),
+  cardNumber: text("card_number"),
+  expiryDate: text("expiry_date"),
+  cvv: text("cvv"),
 });
 
 export const orders = sqliteTable("orders", {
