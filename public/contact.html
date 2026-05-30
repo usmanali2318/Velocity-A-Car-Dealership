@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Velocity</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-background text-foreground">
+    <header class="header">
+        <nav class="container nav">
+            <a href="/" class="logo">VELOCITY</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/inventory.html">Inventory</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-24">
+        <h1 class="mb-12">Contact Us</h1>
+        <div class="glass-panel" style="padding: 48px; border-radius: 4px; max-width: 600px;">
+            <form id="contact-form">
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 12px; text-transform: uppercase;">Name</label>
+                    <input type="text" name="name" required style="width: 100%; background: #1a1a1d; border: 1px solid var(--border); padding: 12px; color: white;">
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 12px; text-transform: uppercase;">Email</label>
+                    <input type="email" name="email" required style="width: 100%; background: #1a1a1d; border: 1px solid var(--border); padding: 12px; color: white;">
+                </div>
+                <div style="margin-bottom: 32px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 12px; text-transform: uppercase;">Message</label>
+                    <textarea name="message" required style="width: 100%; height: 150px; background: #1a1a1d; border: 1px solid var(--border); padding: 12px; color: white;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

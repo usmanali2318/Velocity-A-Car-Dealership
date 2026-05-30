@@ -26,7 +26,11 @@ export async function registerRoutes(
   });
 
   app.get(api.cars.get.path, async (req, res) => {
-    const car = await storage.getCar(Number(req.params.id));
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+    const car = await storage.getCar(id);
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }

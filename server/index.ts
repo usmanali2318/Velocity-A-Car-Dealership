@@ -60,6 +60,9 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Serve static files from /public
+  app.use(express.static("public"));
+
   await registerRoutes(httpServer, app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

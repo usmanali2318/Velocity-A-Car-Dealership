@@ -1,0 +1,105 @@
+:root {
+  --background: #0a0a0c;
+  --foreground: #f8f8f8;
+  --primary: #ffffff;
+  --accent: #ff8c00;
+  --card: #141417;
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Manrope', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+
+.nav {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--foreground);
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.nav-links a {
+  margin-left: 30px;
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/cars/placeholder.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 32px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #000;
+}
+
+.grid { display: grid; }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.gap-8 { gap: 32px; }
+.py-24 { padding: 96px 0; }
+.mb-12 { margin-bottom: 48px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover { border-color: var(--accent); }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card-content { padding: 24px; }
