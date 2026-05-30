@@ -44,6 +44,17 @@
                 </div>
 
                 <div style="margin-bottom: 2.5rem;">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; margin-bottom: 1.25rem;">Price Range</label>
+                    <div style="padding: 0 0.5rem;">
+                        <input type="range" id="price-slider" min="0" max="200000000" step="1000000" value="200000000" style="width: 100%; accent-color: hsl(var(--accent)); cursor: pointer;" oninput="updatePrice(this.value)">
+                        <div style="display: flex; justify-content: space-between; margin-top: 0.75rem;">
+                            <span style="font-size: 0.75rem; color: #a1a1aa;">PKR 0</span>
+                            <span id="price-value" style="font-size: 0.75rem; color: white; font-weight: 600;">PKR 200M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2.5rem;">
                     <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; margin-bottom: 1.25rem;">Category</label>
                     <div id="category-filters" style="display: flex; flex-direction: column; gap: 0.75rem;">
                         <!-- Categories JS -->

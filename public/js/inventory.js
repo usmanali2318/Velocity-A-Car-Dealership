@@ -1,6 +1,7 @@
 let currentFilters = {
     category: new URLSearchParams(window.location.search).get('category') || undefined,
     color: undefined,
+    maxPrice: 200000000,
     sort: 'price_desc'
 };
 
@@ -8,6 +9,12 @@ const categories = ["Sedan", "SUV", "Pickup", "Luxury"];
 const colors = ["Black", "White", "Silver", "Red", "Blue", "Grey"];
 
 function renderFilters() {
+    const priceSlider = document.getElementById('price-slider');
+    const priceValue = document.getElementById('price-value');
+    if (priceSlider && priceValue) {
+        priceSlider.value = currentFilters.maxPrice;
+        priceValue.innerText = `PKR ${(currentFilters.maxPrice / 1000000).toFixed(0)}M`;
+    }
     const catContainer = document.getElementById('category-filters');
     if (catContainer) {
         catContainer.innerHTML = `
@@ -40,6 +47,7 @@ async function loadInventory() {
     const params = new URLSearchParams();
     if (currentFilters.category) params.append('category', currentFilters.category);
     if (currentFilters.color) params.append('color', currentFilters.color);
+    if (currentFilters.maxPrice) params.append('maxPrice', currentFilters.maxPrice);
     params.append('sort', currentFilters.sort);
 
     const res = await fetch('/api/cars?' + params.toString());
@@ -106,8 +114,21 @@ window.updateSort = (sort) => {
     loadInventory();
 };
 
+window.updatePrice = (price) => {
+    currentFilters.maxPrice = parseInt(price);
+    const priceValue = document.getElementById('price-value');
+    if (priceValue) {
+        priceValue.innerText = `PKR ${(currentFilters.maxPrice / 1000000).toFixed(0)}M`;
+    }
+    // Debounce inventory loading
+    if (window.priceTimeout) clearTimeout(window.priceTimeout);
+    window.priceTimeout = setTimeout(() => {
+        loadInventory();
+    }, 300);
+};
+
 window.resetFilters = () => {
-    currentFilters = { category: undefined, color: undefined, sort: 'price_desc' };
+    currentFilters = { category: undefined, color: undefined, maxPrice: 200000000, sort: 'price_desc' };
     renderFilters();
     loadInventory();
 };
