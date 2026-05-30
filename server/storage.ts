@@ -31,7 +31,7 @@ export class DatabaseStorage implements IStorage {
     color?: string;
     sort?: 'price_asc' | 'price_desc';
   }): Promise<Car[]> {
-    let query = db.select().from(cars);
+    let query = db.select().from(cars).$dynamic();
     const conditions = [];
 
     if (filters?.category) {
@@ -48,7 +48,6 @@ export class DatabaseStorage implements IStorage {
     }
 
     if (conditions.length > 0) {
-      // @ts-ignore
       query = query.where(and(...conditions));
     }
 
