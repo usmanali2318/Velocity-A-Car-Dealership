@@ -1,0 +1,143 @@
+DO NOT rebuild or refactor the project. ONLY explain and document the existing setup.
+
+🔹 REQUIRED EXPLANATIONS (STEP-BY-STEP)
+1️⃣ DATABASE FILE LOCATION
+
+Clearly explain:
+
+What is the exact name of the SQLite database file (e.g. database.db)
+
+Exact path in the project where it exists
+Example:
+
+/server/database.db
+OR
+/database.db
+
+
+Which file creates/connects to the DB (db.js, server.js, etc.)
+
+2️⃣ HOW DATABASE CONNECTIVITY WORKS
+
+Explain in simple steps:
+
+When the server starts
+
+How SQLite connection is initialized
+
+Where tables are created
+
+Where seed data is inserted
+
+Which API routes read/write to DB
+
+3️⃣ STEP-BY-STEP: RUNNING THE PROJECT LOCALLY
+
+Explain exact steps, assuming user has never run a Node.js project before.
+
+Include:
+
+🧩 Prerequisites
+
+Node.js version required
+
+Any npm packages used
+
+📥 STEP A — DOWNLOAD PROJECT
+
+Explain both methods:
+
+Download ZIP from Replit
+
+OR clone via Git (if available)
+
+📂 STEP B — OPEN PROJECT
+
+Where to extract files
+
+Which folder to open in VS Code / terminal
+
+📦 STEP C — INSTALL DEPENDENCIES
+
+Exact command:
+
+npm install
+
+
+Explain what this does.
+
+▶️ STEP D — START SERVER
+
+Exact command:
+
+node server.js
+
+
+OR
+
+npm start
+
+
+Mention:
+
+Which port the server runs on
+
+Example: http://localhost:3000
+
+4️⃣ VERIFY DATABASE IS WORKING
+
+Explain how user can confirm:
+
+DB file exists
+
+Cars are loaded
+
+Orders are saved after purchase
+
+Examples:
+
+Check SQLite file timestamp
+
+View DB using SQLite Browser
+
+Place test order and verify quantity decrease
+
+5️⃣ COMMON ERRORS & FIXES
+
+Explain fixes for:
+
+Cannot find module sqlite3
+
+Port already in use
+
+Database not updating
+
+Images not loading
+
+6️⃣ OPTIONAL: HOW TO RESET DATABASE
+
+Explain:
+
+How to delete DB file
+
+How it auto-recreates with seed data
+
+⚠️ IMPORTANT RULES FOR REPLIT
+
+Do NOT use vague explanations
+
+Do NOT skip steps
+
+Do NOT assume prior knowledge
+
+Explain like teaching a beginner
+
+✅ EXPECTED OUTPUT
+
+A clear, numbered, beginner-friendly guide that allows me to:
+
+Locate the SQLite DB
+
+Understand how it works
+
+Run the project locally with full DB connectivity
