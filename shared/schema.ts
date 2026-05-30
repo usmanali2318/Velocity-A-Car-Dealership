@@ -20,9 +20,8 @@ export const cars = sqliteTable("cars", {
 export const orders = sqliteTable("orders", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   customerName: text("customer_name").notNull(),
-  phone: text("phone").notNull(),
-  address: text("address").notNull(),
-  zipcode: text("zipcode").notNull(),
+  customerEmail: text("customer_email"),
+  customerPhone: text("customer_phone").notNull(),
   carId: integer("car_id").notNull(),
   quantity: integer("quantity").notNull(),
   createdAt: integer("created_at", { mode: 'timestamp' }).default(new Date()),

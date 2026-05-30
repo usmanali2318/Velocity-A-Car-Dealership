@@ -35,20 +35,16 @@ export class DatabaseStorage implements IStorage {
     const conditions = [];
 
     if (filters?.category) {
-      conditions.push(eq(cars.category, filters.category));
+      query = query.where(eq(cars.category, filters.category));
     }
     if (filters?.minPrice) {
-      conditions.push(gte(cars.price, filters.minPrice));
+      query = query.where(gte(cars.price, filters.minPrice));
     }
     if (filters?.maxPrice) {
-      conditions.push(lte(cars.price, filters.maxPrice));
+      query = query.where(lte(cars.price, filters.maxPrice));
     }
     if (filters?.color) {
-      conditions.push(eq(cars.color, filters.color));
-    }
-
-    if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      query = query.where(eq(cars.color, filters.color));
     }
 
     if (filters?.sort === 'price_asc') {
@@ -76,9 +72,11 @@ export class DatabaseStorage implements IStorage {
     return await db.transaction(async (tx) => {
       const [car] = await tx.select().from(cars).where(eq(cars.id, order.carId));
       if (!car) throw new Error("Car not found");
-      if (car.quantity < order.quantity) throw new Error("Insufficient quantity");
+      
+      const quantityRequested = order.quantity || 1;
+      if (car.quantity < quantityRequested) throw new Error("Insufficient quantity");
 
-      const newQuantity = car.quantity - order.quantity;
+      const newQuantity = car.quantity - quantityRequested;
       await tx.update(cars)
         .set({ 
           quantity: newQuantity,
@@ -86,7 +84,10 @@ export class DatabaseStorage implements IStorage {
         })
         .where(eq(cars.id, order.carId));
 
-      const [newOrder] = await tx.insert(orders).values(order).returning();
+      const [newOrder] = await tx.insert(orders).values({
+        ...order,
+        quantity: quantityRequested
+      }).returning();
       return newOrder;
     });
   }

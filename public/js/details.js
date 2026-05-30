@@ -103,9 +103,11 @@ async function loadDetails() {
         const data = {
             carId: parseInt(id),
             customerName: formData.get('name'),
-            customerEmail: formData.get('email'),
-            customerPhone: formData.get('phone')
+            customerPhone: formData.get('phone'),
+            quantity: 1
         };
+        const email = formData.get('email');
+        if (email) data.customerEmail = email;
 
         submitBtn.disabled = true;
         submitBtn.innerText = 'Processing...';

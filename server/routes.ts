@@ -4,6 +4,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api, errorSchemas } from "@shared/routes";
 import { z } from "zod";
+import { insertOrderSchema } from "@shared/schema";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -39,7 +40,7 @@ export async function registerRoutes(
 
   app.post(api.orders.create.path, async (req, res) => {
     try {
-      const input = api.orders.create.input.parse(req.body);
+      const input = insertOrderSchema.parse(req.body);
       const order = await storage.createOrder(input);
       res.status(201).json(order);
     } catch (err) {
