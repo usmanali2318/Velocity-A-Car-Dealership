@@ -13,6 +13,8 @@ export const cars = sqliteTable("cars", {
   availability: integer("availability", { mode: 'boolean' }).default(true),
   quantity: integer("quantity").notNull(),
   image: text("image").notNull(),
+  interiorImage: text("interior_image"),
+  detailImage: text("detail_image"),
 });
 
 export const orders = sqliteTable("orders", {
