@@ -14,6 +14,12 @@ export default function CarDetails() {
   const id = params?.id ? parseInt(params.id) : 0;
   const { data: car, isLoading, error } = useCar(id);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Sync selectedImage with car image when car data is loaded
+  if (car && !selectedImage && !isLoading) {
+    setSelectedImage(car.image);
+  }
 
   if (isLoading) {
     return (
@@ -40,7 +46,7 @@ export default function CarDetails() {
     maximumFractionDigits: 0,
   }).format(car.price);
 
-  const [selectedImage, setSelectedImage] = useState(car.image);
+  const displayImage = selectedImage || car.image;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -57,13 +63,13 @@ export default function CarDetails() {
             {/* Image Gallery Section */}
             <div className="space-y-4">
               <motion.div 
-                key={selectedImage}
+                key={displayImage}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="aspect-[16/10] overflow-hidden rounded-sm bg-muted border border-white/10"
               >
                 <img
-                  src={selectedImage || "/images/cars/placeholder.jpg"}
+                  src={displayImage || "/images/cars/placeholder.jpg"}
                   alt={car.name}
                   className="w-full h-full object-cover"
                 />
@@ -71,14 +77,14 @@ export default function CarDetails() {
               <div className="grid grid-cols-3 gap-4">
                 <div 
                   onClick={() => setSelectedImage(car.image)}
-                  className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all ${selectedImage === car.image ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                  className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all ${displayImage === car.image ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
                 >
                   <img src={car.image} className="w-full h-full object-cover" alt="Main" />
                 </div>
                 {car.interiorImage && (
                   <div 
                     onClick={() => setSelectedImage(car.interiorImage!)}
-                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${selectedImage === car.interiorImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${displayImage === car.interiorImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
                   >
                     <img src={car.interiorImage} className="w-full h-full object-cover" alt="Interior" />
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -89,7 +95,7 @@ export default function CarDetails() {
                 {car.detailImage && (
                   <div 
                     onClick={() => setSelectedImage(car.detailImage!)}
-                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${selectedImage === car.detailImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
+                    className={`aspect-video bg-muted rounded-sm border overflow-hidden cursor-pointer transition-all relative ${displayImage === car.detailImage ? 'border-accent opacity-100' : 'border-white/10 opacity-60 hover:opacity-100'}`}
                   >
                     <img src={car.detailImage} className="w-full h-full object-cover" alt="Detail" />
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
