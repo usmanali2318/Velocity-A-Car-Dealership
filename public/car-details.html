@@ -30,6 +30,35 @@
         <!-- Details JS -->
     </main>
 
+    <!-- Reservation Modal -->
+    <div id="reservation-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1.5rem;">
+        <div style="background: hsl(var(--card)); border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 500px; border-radius: 0.25rem; position: relative;">
+            <button onclick="closeModal()" style="position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: #a1a1aa; cursor: pointer; font-size: 1.5rem;">&times;</button>
+            <div style="padding: 2.5rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Complete Reservation</h2>
+                <p style="color: #a1a1aa; font-size: 0.875rem; margin-bottom: 2rem;">Please provide your details to reserve this vehicle.</p>
+                
+                <form id="reservation-form" onsubmit="handleReservation(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Full Name</label>
+                        <input type="text" name="name" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Email Address</label>
+                        <input type="email" name="email" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;">Phone Number</label>
+                        <input type="tel" name="phone" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem; color: white; border-radius: 0.125rem;">
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn btn-primary" style="height: 3.5rem; font-weight: 700; text-transform: uppercase; margin-top: 1rem;">
+                        Confirm Reservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer style="background: hsl(var(--background)); border-top: 1px solid rgba(255,255,255,0.1); padding: 5rem 0 2.5rem;">
         <div class="container">
             <p style="color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; text-align: center; letter-spacing: 0.1em;">© 2026 Velocity Automotive Group. All rights reserved.</p>

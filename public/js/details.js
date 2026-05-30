@@ -78,13 +78,59 @@ async function loadDetails() {
                         </ul>
                     </div>
 
-                    <button class="btn btn-primary" style="width: 100%; height: 3.5rem; font-size: 1rem; font-weight: 700; border-radius: 0.125rem;" ${car.quantity <= 0 ? 'disabled' : ''}>
+                    <button onclick="openModal()" class="btn btn-primary" style="width: 100%; height: 3.5rem; font-size: 1rem; font-weight: 700; border-radius: 0.125rem;" ${car.quantity <= 0 ? 'disabled' : ''}>
                         ${car.quantity > 0 ? 'Reserve This Vehicle' : 'Vehicle Unavailable'}
                     </button>
                 </div>
             </div>
         `;
     }
+
+    window.openModal = () => {
+        document.getElementById('reservation-modal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeModal = () => {
+        document.getElementById('reservation-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+
+    window.handleReservation = async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submit-btn');
+        const formData = new FormData(e.target);
+        const data = {
+            carId: parseInt(id),
+            customerName: formData.get('name'),
+            customerEmail: formData.get('email'),
+            customerPhone: formData.get('phone')
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Processing...';
+
+        try {
+            const res = await fetch('/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (res.ok) {
+                alert('Reservation successful! We will contact you soon.');
+                window.location.href = '/inventory.html';
+            } else {
+                const err = await res.json();
+                alert('Reservation failed: ' + (err.message || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('An error occurred during reservation.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Confirm Reservation';
+        }
+    };
 
     window.updateImage = (img) => {
         displayImage = img;
