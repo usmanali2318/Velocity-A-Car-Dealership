@@ -105,8 +105,8 @@ export class DatabaseStorage implements IStorage {
 
     const seedData: InsertCar[] = [
       // Sedan / Hatchback
-      { name: "Toyota Corolla", model: "2023", category: "Sedan", price: 7500000, color: "White", quantity: 5, image: "toyota_corolla.jpg" },
-      { name: "Honda Civic", model: "2023", category: "Sedan", price: 8500000, color: "Black", quantity: 3, image: "honda_civic.jpg" },
+      { name: "Toyota Corolla", model: "2023", category: "Sedan", price: 7500000, color: "White", quantity: 5, image: "toyota_corolla_2022.jpg" },
+      { name: "Honda Civic", model: "2023", category: "Sedan", price: 8500000, color: "Black", quantity: 3, image: "honda_civic_2023.jpg" },
       { name: "Honda City", model: "2023", category: "Sedan", price: 5800000, color: "Silver", quantity: 4, image: "honda_city.jpg" },
       { name: "Toyota Yaris", model: "2023", category: "Sedan", price: 5200000, color: "Grey", quantity: 6, image: "toyota_yaris.jpg" },
       { name: "Suzuki Alto", model: "2023", category: "Sedan", price: 2800000, color: "White", quantity: 10, image: "suzuki_alto.jpg" },
@@ -117,16 +117,24 @@ export class DatabaseStorage implements IStorage {
       { name: "Kia Sportage", model: "2023", category: "SUV", price: 8500000, color: "Silver", quantity: 4, image: "kia_sportage.jpg" },
       { name: "Hyundai Tucson", model: "2023", category: "SUV", price: 8200000, color: "Grey", quantity: 3, image: "hyundai_tucson.jpg" },
       { name: "Honda BR-V", model: "2023", category: "SUV", price: 6500000, color: "Silver", quantity: 4, image: "honda_brv.jpg" },
+      { name: "Hyundai Ioniq 5", model: "2023", category: "SUV", price: 12000000, color: "White", quantity: 2, image: "hyundai_ioniq_5_2023.jpg" },
+      { name: "Jeep Wrangler", model: "2022", category: "SUV", price: 25000000, color: "Green", quantity: 1, image: "jeep_wrangler_2022.jpg" },
+      { name: "BMW X5", model: "2023", category: "SUV", price: 35000000, color: "Blue", quantity: 1, image: "bmw_x5_2023.jpg" },
       // Pickup / Utility
       { name: "Toyota Hilux Revo", model: "2023", category: "Pickup", price: 14500000, color: "White", quantity: 3, image: "toyota_hilux_revo.jpg" },
       { name: "Isuzu D-Max", model: "2023", category: "Pickup", price: 12500000, color: "Black", quantity: 2, image: "isuzu_d_max.jpg" },
-      // Luxury
+      // Luxury / Sports
       { name: "BMW 7 Series", model: "2023", category: "Luxury", price: 65000000, color: "Black", quantity: 1, image: "bmw_7_series.jpg" },
       { name: "Mercedes-Benz S-Class", model: "2023", category: "Luxury", price: 75000000, color: "Silver", quantity: 1, image: "mercedes_s_class.jpg" },
       { name: "Audi A8", model: "2023", category: "Luxury", price: 68000000, color: "Grey", quantity: 1, image: "audi_a8.jpg" },
       { name: "Porsche Cayenne", model: "2023", category: "Luxury", price: 55000000, color: "White", quantity: 2, image: "porsche_cayenne.jpg" },
       { name: "Range Rover Vogue", model: "2023", category: "Luxury", price: 95000000, color: "Black", quantity: 1, image: "range_rover_vogue.jpg" },
-      { name: "Lexus LX 570", model: "2021", category: "Luxury", price: 85000000, color: "White", quantity: 1, image: "lexus_lx_570.jpg" }
+      { name: "Lexus LX 570", model: "2021", category: "Luxury", price: 85000000, color: "White", quantity: 1, image: "lexus_lx_570.jpg" },
+      { name: "Audi A6", model: "2021", category: "Sedan", price: 15000000, color: "Black", quantity: 2, image: "audi_a6_2021.jpg" },
+      { name: "Ford Mustang", model: "2022", category: "Luxury", price: 22000000, color: "Red", quantity: 1, image: "ford_mustang_2022.jpg" },
+      { name: "Mercedes C-Class", model: "2023", category: "Luxury", price: 18000000, color: "Blue", quantity: 3, image: "mercedes_c_class_2023.jpg" },
+      { name: "Porsche 911", model: "2023", category: "Luxury", price: 45000000, color: "Silver", quantity: 1, image: "porsche_911_2023.jpg" },
+      { name: "Tesla Model S", model: "2024", category: "Luxury", price: 30000000, color: "White", quantity: 2, image: "tesla_model_s_2024.jpg" }
     ];
 
     for (const car of seedData) {
