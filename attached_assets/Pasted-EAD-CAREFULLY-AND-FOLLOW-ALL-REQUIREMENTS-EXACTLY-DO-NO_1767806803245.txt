@@ -1,0 +1,283 @@
+EAD CAREFULLY AND FOLLOW ALL REQUIREMENTS EXACTLY. DO NOT SIMPLIFY.
+
+🔹 TECH STACK (MANDATORY)
+
+Frontend: HTML5 + CSS3 + Vanilla JavaScript
+
+Backend: Node.js + Express.js
+
+Database: SQLite
+
+No frameworks like React or Vue
+
+Must run fully inside Replit
+
+🏗️ PROJECT GOAL
+
+Build a FULL-STACK E-COMMERCE WEBSITE FOR SELLING CARS with a premium, advanced, real-world UI and a fully functional SQLite database.
+
+This must behave like a real commercial website, not a demo or static project.
+
+🗄️ DATABASE REQUIREMENTS (MANDATORY)
+📌 SQLite Database Setup
+
+Create database.db
+
+Use SQLite (not JSON, not memory storage)
+
+Seed database automatically on first run
+
+cars TABLE (MUST EXIST & BE SEEDED)
+Column	Type
+id	INTEGER PRIMARY KEY AUTOINCREMENT
+name	TEXT
+model	TEXT
+category	TEXT
+price	REAL
+color	TEXT
+availability	INTEGER
+quantity	INTEGER
+image	TEXT
+
+➡️ Seed at least 10 cars across categories:
+
+Sedan
+
+SUV
+
+Sports
+
+Electric
+
+Luxury
+
+orders TABLE
+Column	Type
+id	INTEGER PRIMARY KEY
+customer_name	TEXT
+phone	TEXT
+address	TEXT
+zipcode	TEXT
+car_id	INTEGER
+quantity	INTEGER
+created_at	TIMESTAMP
+contact_messages TABLE
+Column	Type
+id	INTEGER
+name	TEXT
+email	TEXT
+message	TEXT
+🖼️ IMAGE HANDLING (VERY IMPORTANT)
+🔹 IMAGE STORAGE METHOD
+
+Create folder:
+/public/images/cars/
+
+All car images must be stored here
+
+Images must be linked via database, not hardcoded
+
+🔹 IMAGE NAMING CONVENTION (MANDATORY)
+
+Replit must either generate or guide image naming like:
+
+toyota_corolla_2022.jpg
+bmw_x5_2023.jpg
+tesla_model_s_2024.jpg
+audi_a6_2021.jpg
+ford_mustang_2022.jpg
+
+
+📌 Rules:
+
+lowercase
+
+no spaces
+
+use underscores _
+
+match image filename with DB image field
+
+Example DB entry:
+
+image = "bmw_x5_2023.jpg"
+
+🔹 IMAGE GUIDANCE REQUIREMENT
+
+Replit must:
+
+Tell me exactly what image names to use
+
+Tell me where to place them
+
+Auto-map images to cars via database
+
+If possible, generate placeholder images automatically
+OR
+
+Provide clear fallback instructions for manual placement
+
+🖥️ FRONTEND UI REQUIREMENTS (NO COMPROMISE)
+🌟 UI LEVEL
+
+ADVANCED ADVANCED ADVANCED
+
+Automotive premium feel (Tesla / BMW / Mercedes)
+
+Smooth animations
+
+Modern layout
+
+Mobile responsive
+
+📌 REQUIRED PAGES
+🏠 Home
+
+Full-width slideshow / carousel
+
+Featured cars from DB
+
+Animated sections
+
+Sticky navbar
+
+🚗 Categories
+
+Separate sections/pages per category
+
+Filter cars dynamically via JS
+
+No page reload
+
+📋 All Cars
+
+Grid layout
+
+Filters:
+
+Price range
+
+Color
+
+Availability
+
+Sorting
+
+🔍 Car Details
+
+Image gallery
+
+Buy button
+
+Disable purchase if quantity = 0
+
+💳 Checkout
+
+User enters:
+
+Name
+
+Phone
+
+Address
+
+Zip code
+
+Save order to DB
+
+Reduce car quantity instantly
+
+Update availability in real time
+
+📞 Contact
+
+Contact form
+
+Save messages to DB
+
+Confirmation UI
+
+🔄 REAL-TIME LOGIC (MANDATORY)
+
+On purchase:
+
+Save order
+
+Reduce quantity
+
+Update availability
+
+Reflect change instantly in UI
+
+Prevent over-purchasing
+
+No page refresh required
+
+⚙️ BACKEND LOGIC
+
+REST API endpoints:
+
+GET /cars
+
+GET /cars/:id
+
+POST /order
+
+POST /contact
+
+Input validation
+
+SQL injection protection
+
+Error handling
+
+🎨 UI/UX FEATURES (REQUIRED)
+
+Sliders (Swiper / custom JS)
+
+Hover animations
+
+Toast notifications
+
+Loading skeletons
+
+Modal dialogs
+
+Smooth transitions
+
+📁 PROJECT STRUCTURE (MANDATORY)
+/public
+  /css
+  /js
+  /images/cars
+/server
+  db.js
+  routes.js
+  server.js
+database.db
+
+🚀 FINAL INSTRUCTIONS TO REPLIT
+
+DO NOT simplify UI
+
+DO NOT hardcode cars
+
+DO NOT skip SQLite
+
+DO NOT skip image mapping
+
+DO NOT merge frontend/backend logic incorrectly
+
+Guide user clearly for image naming and placement
+
+✅ EXPECTED OUTPUT
+
+A fully working, professional, real-world car e-commerce website with:
+
+Advanced UI
+
+Real database
+
+Real purchase flow
+
+Real-time updates
