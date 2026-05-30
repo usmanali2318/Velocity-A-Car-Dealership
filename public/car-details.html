@@ -7,21 +7,47 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="bg-background text-foreground">
-    <header class="header">
-        <nav class="container nav">
-            <a href="/" class="logo">VELOCITY</a>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/inventory.html">Inventory</a>
-                <a href="/contact.html">Contact</a>
+    <header id="header" class="header header-default">
+        <div class="container nav">
+            <a href="/" class="brand">
+                <div class="brand-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                </div>
+                <span class="brand-text">VELOCITY</span>
+            </a>
+            <nav class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/inventory.html" class="nav-link">Inventory</a>
+                <a href="/contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div style="display: none;" class="md:block">
+                <a href="/inventory.html" class="btn btn-outline" style="border-radius: 0;">Find Your Vehicle</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <main class="container py-24" id="car-details">
-        <!-- Details will be loaded here -->
+    <main class="container" style="padding-top: 8rem; padding-bottom: 6rem;" id="car-details">
+        <!-- Details JS -->
     </main>
 
+    <footer style="background: hsl(var(--background)); border-top: 1px solid rgba(255,255,255,0.1); padding: 5rem 0 2.5rem;">
+        <div class="container">
+            <p style="color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; text-align: center; letter-spacing: 0.1em;">© 2026 Velocity Automotive Group. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="/js/details.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 20) {
+                header.classList.remove('header-default');
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+                header.classList.add('header-default');
+            }
+        });
+    </script>
 </body>
 </html>

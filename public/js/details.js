@@ -53,14 +53,14 @@ async function loadDetails() {
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <div style="padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 0.125rem; color: hsl(var(--accent));">⛽</div>
+                            <div style="padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 0.125rem; color: hsl(var(--accent)); display: flex; align-items: center; justify-content: center;">⛽</div>
                             <div>
                                 <span style="display: block; font-size: 10px; color: hsl(var(--muted-foreground)); text-transform: uppercase;">Fuel Type</span>
                                 <span style="color: white; font-weight: 500;">Gasoline</span>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <div style="padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 0.125rem; color: hsl(var(--accent));">🏎️</div>
+                            <div style="padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 0.125rem; color: hsl(var(--accent)); display: flex; align-items: center; justify-content: center;">🏎️</div>
                             <div>
                                 <span style="display: block; font-size: 10px; color: hsl(var(--muted-foreground)); text-transform: uppercase;">Mileage</span>
                                 <span style="color: white; font-weight: 500;">0 mi (New)</span>
