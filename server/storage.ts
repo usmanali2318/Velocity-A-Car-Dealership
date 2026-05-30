@@ -69,27 +69,29 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createOrder(order: InsertOrder): Promise<Order> {
-    return await db.transaction(async (tx) => {
-      const [car] = await tx.select().from(cars).where(eq(cars.id, order.carId));
-      if (!car) throw new Error("Car not found");
-      
-      const quantityRequested = order.quantity || 1;
-      if (car.quantity < quantityRequested) throw new Error("Insufficient quantity");
+    const quantityRequested = order.quantity || 1;
+    
+    // First check car existence and quantity
+    const [car] = await db.select().from(cars).where(eq(cars.id, order.carId));
+    if (!car) throw new Error("Car not found");
+    if (car.quantity < quantityRequested) throw new Error("Insufficient quantity");
 
-      const newQuantity = car.quantity - quantityRequested;
-      await tx.update(cars)
-        .set({ 
-          quantity: newQuantity,
-          availability: newQuantity > 0 
-        })
-        .where(eq(cars.id, order.carId));
+    const newQuantity = car.quantity - quantityRequested;
+    
+    // Perform updates sequentially since transaction has issues with promises in this environment
+    await db.update(cars)
+      .set({ 
+        quantity: newQuantity,
+        availability: newQuantity > 0 
+      })
+      .where(eq(cars.id, order.carId));
 
-      const [newOrder] = await tx.insert(orders).values({
-        ...order,
-        quantity: quantityRequested
-      }).returning();
-      return newOrder;
-    });
+    const [newOrder] = await db.insert(orders).values({
+      ...order,
+      quantity: quantityRequested
+    }).returning();
+    
+    return newOrder;
   }
 
   async createContactMessage(message: InsertContactMessage): Promise<ContactMessage> {
